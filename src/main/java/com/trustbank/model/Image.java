@@ -19,4 +19,10 @@ public class Image {
 
     @Lob
     private byte[] imageData;
+
+    @OneToOne
+    private Customer customer;
+
+    @OneToOne
+    private Admin admin;
 }

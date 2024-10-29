@@ -1,12 +1,16 @@
 package com.trustbank.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transactions {
 
     @Id
@@ -20,7 +24,7 @@ public class Transactions {
     private LocalDateTime transactionDate;
 
     @Column(nullable = false)
-    private TransactionType transactionType;
+    private String transactionType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id")
@@ -29,4 +33,11 @@ public class Transactions {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
     private Customer sender;
+
+    @Override
+    public String toString() {
+        return String.format("TransactionsDTO{ id= %s, amount= %s, " +
+                "transactionDate= %s, transactionType= %s, receiver= %s, " +
+                "sender= %s }",id,amount,transactionDate,transactionType,receiver,sender);
+    }
 }

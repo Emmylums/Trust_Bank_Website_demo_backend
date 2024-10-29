@@ -1,4 +1,4 @@
-package com.trustbank.model;
+package com.trustbank.dto;
 
 public enum TransactionType {
     DEPOSIT,

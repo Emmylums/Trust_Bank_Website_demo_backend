@@ -15,7 +15,6 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     private String firstName;
 
     private String middleName;
@@ -26,8 +25,9 @@ public class Admin {
 
     private String phoneNumber;
 
-    @Embedded
-    private Address address;
+    private String  adminRole;
+
+    private String address;
 
     @OneToOne
     @JoinColumn(name = "passport_id")
@@ -43,17 +43,10 @@ public class Admin {
 
     @Override
     public String toString() {
-        return "Admin{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
-                ", passport=" + passport +
-                ", meansOfVerification=" + meansOfVerification +
-                ", user=" + user +
-                '}';
+        return String.format("Admin { id= %s, First Name= %s," +
+                        "Middle Name= %s, Last Name= %s, Email= %s, " +
+                        "Phone Number= %s, Address= %s, Admin Role= %s,  User= %s }",
+                id, firstName,middleName, lastName, email,
+                phoneNumber, address, adminRole, user);
     }
 }

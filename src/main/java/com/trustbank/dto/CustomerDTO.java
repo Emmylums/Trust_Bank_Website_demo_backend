@@ -1,6 +1,5 @@
-package com.trustbank.model;
+package com.trustbank.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Customer {
+public class CustomerDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String accountNumber;
@@ -27,27 +23,19 @@ public class Customer {
 
     private String phoneNumber;
 
-    private String address;
+    private Address addressDTO;
 
     private String bankVerificationNumber;
 
-    @OneToOne
-    @JoinColumn(name = "passport_id")
-    private Image passport;
+    private ImageDTO passport;
 
-    @OneToOne
-    @JoinColumn(name = "electricBill_id")
-    private Image electricBill;
+    private ImageDTO electricBill;
 
-    @OneToOne
-    @JoinColumn(name = "meansOfVerification_id")
-    private Image meansOfVerification;
+    private ImageDTO meansOfVerification;
 
     private Double balance;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private UserDTO userDTO;
 
 
     @Override
@@ -55,7 +43,7 @@ public class Customer {
         return String.format("Customer{ id= %s, accountNumber= %s, firstName= %s, " +
                         "middleName= %s, lastName= %s, email= %s, phoneNumber= %s," +
                         " address= %s, bankVerificationNumber= %s, balance= %.2f, user= %s }",
-                id, accountNumber, firstName, middleName, lastName, email,
-                phoneNumber, address, bankVerificationNumber, balance, user);
+                        id, accountNumber, firstName, middleName, lastName, email,
+                        phoneNumber, addressDTO, bankVerificationNumber, balance, userDTO);
     }
 }
