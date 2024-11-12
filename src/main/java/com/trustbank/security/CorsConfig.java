@@ -1,4 +1,4 @@
-package com.trustbank.config;
+package com.trustbank.security;
 
 import lombok.NonNull;
 import org.springframework.context.annotation.Bean;

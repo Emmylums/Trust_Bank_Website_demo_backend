@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,7 +21,7 @@ public class Transactions {
     private Double amount;
 
     @Column(nullable = false)
-    private LocalDateTime transactionDate;
+    private Date transactionDate;
 
     @Column(nullable = false)
     private String transactionType;
@@ -34,10 +34,11 @@ public class Transactions {
     @JoinColumn(name = "sender_id")
     private Customer sender;
 
-    @Override
-    public String toString() {
-        return String.format("TransactionsDTO{ id= %s, amount= %s, " +
-                "transactionDate= %s, transactionType= %s, receiver= %s, " +
-                "sender= %s }",id,amount,transactionDate,transactionType,receiver,sender);
+    public Transactions(Double amount, Date transactionDate, String transactionType, Customer receiver, Customer sender) {
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+        this.transactionType = transactionType;
+        this.receiver = receiver;
+        this.sender = sender;
     }
 }

@@ -1,15 +1,21 @@
 package com.trustbank.dto;
 
+import com.trustbank.enums.ADMIN_ROLE;
+import com.trustbank.model.Address;
+import com.trustbank.model.Image;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class AdminDTO {
-
     private Long id;
+
+    private String title;
 
     private String firstName;
 
@@ -21,22 +27,21 @@ public class AdminDTO {
 
     private String phoneNumber;
 
-    private ADMIN_ROLE adminRole = ADMIN_ROLE.ROLE_FRONT_DESK;
+    private ADMIN_ROLE adminRole;
 
-    private Address addressDTO;
+    private Address address;
 
-    private ImageDTO passport;
+    private List<Image> verificationImages;
 
-    private ImageDTO meansOfVerification;
-
-    private UserDTO userDTO;
-
-    @Override
-    public String toString() {
-        return String.format("Admin { id= %s, First Name= %s," +
-                        "Middle Name= %s, Last Name= %s, Email= %s, " +
-                        "Phone Number= %s, Address= %s, Admin Role= %s  User= %s }",
-                        id, firstName,middleName, lastName, email,
-                        phoneNumber, addressDTO, adminRole, userDTO);
+    public AdminDTO(String title, String firstName, String middleName, String lastName, String email, String phoneNumber, ADMIN_ROLE adminRole, Address address, List<Image> verificationImages) {
+        this.title = title;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.adminRole = adminRole;
+        this.address = address;
+        this.verificationImages = verificationImages;
     }
 }

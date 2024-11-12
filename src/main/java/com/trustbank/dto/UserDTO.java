@@ -1,6 +1,11 @@
 package com.trustbank.dto;
 
-import lombok.*;
+import com.trustbank.enums.USER_ROLE;
+import com.trustbank.model.Admin;
+import com.trustbank.model.Customer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -11,13 +16,18 @@ public class UserDTO {
 
     private String username;
 
-    private String password;
+    private USER_ROLE role = USER_ROLE.CUSTOMER;
 
-    private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
+    private Customer customer;
 
-    private CustomerDTO customerDTO;
+    private Admin admin;
 
-    private AdminDTO adminDTO;
+    public UserDTO(String username, USER_ROLE role, Customer customer, Admin admin){
+        this.username = username;
+        this.role = role;
+        this.customer = customer;
+        this.admin = admin;
+    }
 
     @Override
     public String toString() {

@@ -1,10 +1,12 @@
 package com.trustbank.dto;
 
+import com.trustbank.enums.TRANSACTION_TYPE;
+import com.trustbank.model.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -15,18 +17,19 @@ public class TransactionsDTO {
 
     private Double amount;
 
-    private LocalDateTime transactionDate;
+    private Date transactionDate;
 
-    private TransactionType transactionType = TransactionType.TRANSFER;
+    private TRANSACTION_TYPE transactionType = TRANSACTION_TYPE.TRANSFER;
 
-    private CustomerDTO receiver;
+    private Customer receiver;
 
-    private CustomerDTO sender;
+    private Customer sender;
 
-    @Override
-    public String toString() {
-        return String.format("TransactionsDTO{ id= %s, amount= %s, " +
-                        "transactionDate= %s, transactionType= %s, receiver= %s, " +
-                        "sender= %s }",id,amount,transactionDate,transactionType,receiver,sender);
+    public TransactionsDTO(Double amount, Date transactionDate, TRANSACTION_TYPE transactionType, Customer receiver, Customer sender) {
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+        this.transactionType = transactionType;
+        this.receiver = receiver;
+        this.sender = sender;
     }
 }

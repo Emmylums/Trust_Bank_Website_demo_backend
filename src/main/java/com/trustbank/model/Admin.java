@@ -5,48 +5,60 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UniqueAdminCredentials", columnNames = {"phoneNumber","email","passport","meansOfVerification"})})
 public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     private String firstName;
 
     private String middleName;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String phoneNumber;
 
-    private String  adminRole;
+    @Column(nullable = false)
+    private String adminRole;
 
-    private String address;
+    @OneToOne(mappedBy = "admin")
+    private Address address;
 
-    @OneToOne
-    @JoinColumn(name = "passport_id")
-    private Image passport;
-
-    @OneToOne
-    @JoinColumn(name = "meansOfVerification_id")
-    private Image meansOfVerification;
+    @OneToMany(mappedBy = "admin")
+    private List<Image> verificationImages = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinTable( name = "user_admin", joinColumns = @JoinColumn(name = "admin_id"), inverseJoinColumns = @JoinColumn(name = "user_id") )
     private User user;
 
-    @Override
-    public String toString() {
-        return String.format("Admin { id= %s, First Name= %s," +
-                        "Middle Name= %s, Last Name= %s, Email= %s, " +
-                        "Phone Number= %s, Address= %s, Admin Role= %s,  User= %s }",
-                id, firstName,middleName, lastName, email,
-                phoneNumber, address, adminRole, user);
+    public Admin(String title, String firstName, String middleName, String lastName, String email, String phoneNumber, String adminRole, Address address, List<Image> verificationImages, User user) {
+        this.title = title;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.adminRole = adminRole;
+        this.address = address;
+        this.verificationImages = verificationImages;
+        this.user = user;
     }
 }

@@ -1,6 +1,7 @@
 package com.trustbank.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,11 +21,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Username is required")
     @Column(unique = true)
     private String username;
 
+    @NotBlank(message = "Password is required")
     private String password;
 
+    @NotBlank(message = "Role is required")
     private String role;
 
     @OneToOne
@@ -35,6 +39,11 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
+        return username;
+    }
+
+    @Override
+    public String getUsername(){
         return username;
     }
 
@@ -61,5 +70,21 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isAnAdmin(){
+        return this.admin != null;
+    }
+
+    public boolean isACustomer(){
+        return this.customer != null;
+    }
+
+    public User(String username, String password, String role, Customer customer, Admin admin) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.customer = customer;
+        this.admin = admin;
     }
 }
